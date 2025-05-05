@@ -1,0 +1,80 @@
+{% extends 'complaints/base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    
+    <div class="dashboard-filters">
+        <form method="get" class="filter-form">
+            <div class="filter-group">
+                <label for="status">Filter by Status:</label>
+                <select name="status" id="status" onchange="this.form.submit()">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="resolved" {% if status_filter == 'resolved' %}selected{% endif %}>Resolved</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search" value="{{ search_query }}" placeholder="Search complaints...">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="dashboard-section">
+        <h3>Complaints List</h3>
+        
+        {% if complaints %}
+            <div class="complaints-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Subject</th>
+                            <th>User</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for complaint in complaints %}
+                            <tr>
+                                <td>{{ complaint.id }}</td>
+                                <td>{{ complaint.subject }}</td>
+                                <td>{{ complaint.user.username }}</td>
+                                <td>{{ complaint.get_category_display }}</td>
+                                <td>
+                                    <span class="status status-{{ complaint.status }}">
+                                        {{ complaint.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>{{ complaint.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'complaint_detail' complaint.id %}" class="btn btn-small">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No complaints found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

@@ -1,0 +1,35 @@
+e-governance/
+├── manage.py
+├── e_governance/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── complaints/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py
+│   ├── templates/
+│   │   ├── complaints/
+│   │   │   ├── base.html
+│   │   │   ├── login.html
+│   │   │   ├── register.html
+│   │   │   ├── user_dashboard.html
+│   │   │   ├── complaint_form.html
+│   │   │   ├── complaint_success.html
+│   │   │   ├── admin_dashboard.html
+│   │   │   └── complaint_detail.html
+│   └── static/
+│       ├── css/
+│       │   ├── style.css
+│       │   └── dashboard.css
+│       ├── js/
+│       │   ├── main.js
+│       │   └── dashboard.js
+│       └── images/
+└── requirements.txt
